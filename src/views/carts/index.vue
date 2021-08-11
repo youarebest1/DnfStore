@@ -18,7 +18,7 @@
 
 <script>
 import Connav from '../../components/con_nav_black.vue'
-import {get} from "../../util/request";
+// import {get} from "../../util/request";
 export default {
     
     components: {
@@ -34,13 +34,13 @@ export default {
     watch: {},
     
     methods: {
-       async CarList(){
-           const res = await get('/api/v1/shop_carts')
-           console.log(res);
-       }
+    //    async CarList(){
+    //        const res = await get('/api/v1/shop_carts')
+    //        console.log(res);
+    //    }
     },
     created() {
-        this.CarList()
+        // this.CarList()
     },
     mounted() {
         
