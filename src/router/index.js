@@ -54,6 +54,13 @@ const router = new VueRouter({
         footShow: false,
       },
     },
+    {
+      path: "/xiangqing/:id", //详情页面
+      component: () => import("../views/xiangqing"),
+      meta: {
+        footShow: false,
+      },
+    },
     /* 以下为列表页路由 */
     {
       path: "/tiao1", //我是礼包收藏路由
