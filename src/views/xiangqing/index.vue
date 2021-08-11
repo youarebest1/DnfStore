@@ -31,7 +31,7 @@
         <div id="color">
             <div id="yanse">
                 <p>颜色</p>
-                <img :src="Obj.coverImg" alt="" width="50px">
+                <img :src="Obj.coverImg" v-if='Obj.coverImg' width="50px">
             </div>
             <div id="chicun">
                 <p>尺寸</p>
@@ -40,7 +40,6 @@
             <div id="shuliang">
                 <p>数量</p>
                 <div>
-                    
                     <van-stepper v-model="value" id="btn"/>
                 </div>
             </div>
@@ -48,19 +47,18 @@
         <br><br><br><br><br><br>
         <!-- 加入购物车 -->
         <div>
-            
            <van-goods-action>
  <van-goods-action-icon icon="chat-o" text="首页" to="/shouye"/>
   <van-goods-action-icon icon="like-o" text="收藏" />
   <van-goods-action-button color="red" type="warning" text="立即购买" to="/carts" />
-  <van-goods-action-button color="rgb(255,138,59)" type="danger" text="加入购物车" />
+  <van-goods-action-button color="rgb(255,138,59)" type="danger" text="加入购物车" @click="addCar"/>
 </van-goods-action>
         </div>
     </div>
 </template>
 
 <script>
-import {get} from '../../util/request'
+import {get,post} from '../../util/request'
 // import { Toast } from 'vant';
 export default {
     
@@ -69,6 +67,7 @@ export default {
         
         return {
             Obj:'',
+            value: 1,
             //高亮
             // menus:[
             //     {id:1,title:'111'},
@@ -85,16 +84,25 @@ export default {
         // choose(index){
         //     console.log(this.$refs.ppp[index].innerHTML)
         // },
-        async init(){
-         const res = await get('/api/v1/products/'+"611339461e8cff3e900532c0")
+        //获取商品ID
+        async init(id){
+         const res = await get('/api/v1/products/'+id)
          console.log(res);
          this.Obj=res.data
-        
+  
       },
+      //添加购物车
+      async addCar(){
+          const res=await post('/api/v1/shop_carts',{
+            product:this.id,
+            quantity:this.value,
+        })
+         console.log(res)       
+      }
       //锚点跳转
-      shangpin(){
-            document.querySelector('#img1').scrollIntoView(true);  
-      },
+    //   shangpin(){
+    //         document.querySelector('#img1').scrollIntoView(true);  
+    //   },
     //   xiangqing(){
     //         document.querySelector('#img2').scrollIntoView(true);
     //   },
@@ -104,8 +112,9 @@ export default {
      
     },
     created() {
-        // this.id = this.$route.params.id
-        this.init()
+         this.id = this.$route.params.id
+        this.init(this.id)
+
     },
     mounted() {
         
