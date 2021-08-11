@@ -80,7 +80,7 @@ export default {
 		},
 		// 点击跳转到详情
 		godetail(id) {
-			this.$router.push('/detail/' + id)
+			this.$router.push('/xiangqing/' + id)
 		},
 	},
 	created() {},
