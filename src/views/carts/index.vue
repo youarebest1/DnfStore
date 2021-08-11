@@ -7,9 +7,8 @@
         <!-- 购物车没有数据 -->
         <div id="nolist">
             <div>
-                <router-link to="shouye"><div id="shouye">1</div></router-link>
+                <router-link to="shouye"><div id="shouye"></div></router-link>
                 <img src="https://img.dnfcity.qq.com/weixin20/base/cart_no.png" alt="" width="220px" height="320px" >
-               
             </div>
         </div>
 <Connav></Connav>
