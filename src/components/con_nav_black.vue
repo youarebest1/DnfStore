@@ -89,9 +89,10 @@ export default {
 </script>
 <style>
 .con_nav{
-    position: absolute;
-    right: 10px;
-    top:20px;
+    position: fixed;
+    right: 20px;
+    top:28px;
+    z-index: 100;
 }
 .con_nav   .van-popup{
        opacity: .9;
@@ -109,7 +110,6 @@ export default {
  .con_nav .van-popup>ul>li{
       width: 80%;
       height: 52px;
-      border: 1px solid greenyellow;
       margin: 0 auto;
       border-radius: 50px;
       position: relative;
