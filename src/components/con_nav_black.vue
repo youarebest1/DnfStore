@@ -136,4 +136,46 @@ export default {
   margin-top: 20px;
   margin-left: 50%;
 }
+.con_nav .van-popup {
+  opacity: 0.9;
+}
+.con_nav .van-popup > h1 {
+  margin-top: 40px;
+  font-size: 2em;
+  text-align: center;
+  color: #454545;
+  margin-bottom: 10px;
+}
+.con_nav .van-popup > ul {
+  display: block;
+}
+.con_nav .van-popup > ul > li {
+  width: 80%;
+  height: 52px;
+  margin: 0 auto;
+  border-radius: 50px;
+  position: relative;
+  margin-bottom: 5px;
+}
+.con_nav .van-popup > ul > li > img {
+  width: 100%;
+  height: 52px;
+}
+.con_nav .van-popup > ul > li > span {
+  position: absolute;
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  font-size: 14px;
+  color: #fff;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  margin-left: 13%;
+}
+.con_nav .van-popup .van-popup__close-icon {
+  font-size: 30px !important;
+  margin-top: 20px;
+  margin-left: 50%;
+}
 </style>

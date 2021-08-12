@@ -60,6 +60,8 @@ export default {
             setToken(result.data.token);
             Toast.success('登录成功');
             this.$router.push('/');
+        }else{
+            Toast.success('登陆失败'); 
         }
     }, 
         gotoZhuce(){
