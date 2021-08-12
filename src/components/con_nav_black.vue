@@ -116,7 +116,7 @@ export default {
       margin-bottom: 5px;
   }  
   .con_nav .van-popup>ul>li>img{
-width: 100%;
+     width: 100%;
       height: 52px;
    }
  .con_nav .van-popup>ul>li>span{
