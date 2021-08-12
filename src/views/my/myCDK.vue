@@ -16,11 +16,7 @@ export default {
 	computed: {},
 	watch: {},
 
-	methods: {
-		onClickLeft() {
-			this.$router.push('/my')
-		},
-	},
+	methods: {},
 	created() {},
 	mounted() {},
 }

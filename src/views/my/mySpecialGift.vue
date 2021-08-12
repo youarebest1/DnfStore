@@ -1,10 +1,15 @@
 <template>
-	<div class="">特殊礼包</div>
+	<div class="box">
+		<Nodata title="特殊礼包"></Nodata>
+	</div>
 </template>
 
 <script>
+import Nodata from '../../components/notdata.vue'
 export default {
-	components: {},
+	components: {
+		Nodata,
+	},
 	data() {
 		return {}
 	},
@@ -16,4 +21,11 @@ export default {
 	mounted() {},
 }
 </script>
-<style scoped></style>
+<style scoped>
+.box {
+	display: block;
+	background-color: #f7f7f7;
+	min-height: 568px;
+	overflow-y: hidden;
+}
+</style>

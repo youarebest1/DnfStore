@@ -26,7 +26,11 @@ export default {
 	computed: {},
 	watch: {},
 
-	methods: {},
+	methods: {
+		onClickLeft() {
+			this.$router.go('-1')
+		},
+	},
 	created() {},
 	mounted() {},
 }
