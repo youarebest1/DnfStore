@@ -11,7 +11,7 @@
 		</div>
 		<div class="cont">
 			<div class="order">
-				<van-cell title="全部订单" icon="orders-o" is-link to="index" />
+				<van-cell title="全部订单" icon="orders-o" is-link to="userOrder" />
 				<van-grid>
 					<van-grid-item icon="credit-pay" text="待付款" />
 					<van-grid-item icon="logistics" text="待发货" />
@@ -21,17 +21,22 @@
 			</div>
 
 			<div class="cheap">
-				<van-cell title="优惠券" icon="send-gift-o" is-link to="index" />
-				<van-cell title="收藏商品" icon="like-o" is-link to="index" />
-				<van-cell title="游戏道具" icon="gem-o" is-link to="index" />
-				<van-cell title="特殊礼包" icon="gem-o" is-link to="index" />
-				<van-cell title="我的CDK" icon="gem-o" is-link to="index" />
-				<van-cell title="抽奖信息" icon="gift-o" is-link to="index" />
+				<van-cell title="优惠券" icon="send-gift-o" is-link to="myCoupon" />
+				<van-cell
+					title="收藏商品"
+					icon="like-o"
+					is-link
+					to="myCollectedWares"
+				/>
+				<van-cell title="游戏道具" icon="gem-o" is-link to="myGift" />
+				<van-cell title="特殊礼包" icon="gem-o" is-link to="mySpecialGift" />
+				<van-cell title="我的CDK" icon="gem-o" is-link to="myCDK" />
+				<van-cell title="抽奖信息" icon="gift-o" is-link to="myPrizeRecord" />
 			</div>
 			<div class="mine">
-				<van-cell title="收货地址" icon="location-o" is-link to="index" />
-				<van-cell title="个人资料" icon="user-o" is-link to="index" />
-				<van-cell title="售后服务" icon="phone-o" is-link to="index" />
+				<van-cell title="收货地址" icon="location-o" is-link to="addressList" />
+				<van-cell title="个人资料" icon="user-o" is-link to="userInfo" />
+				<van-cell title="售后服务" icon="phone-o" is-link to="afterService" />
 				<van-cell is-link value="详情" class="dibu">
 					<template #title>
 						<van-icon name="gem-o" class="redicon"></van-icon>
