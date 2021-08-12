@@ -11,7 +11,7 @@
                   <!-- <router-link to="">123</router-link> -->
               </ul>
               
-            <router-link to="/carts"><van-icon name="shopping-cart-o"  size="6vw" badge="9" color="black"/></router-link>
+            <router-link to="/carts"><van-icon name="shopping-cart-o"  size="6vw" :badge="CarSum" color="black"/></router-link>
             </div>
             <!-- 11111
             <ul>
@@ -68,6 +68,7 @@ export default {
         return {
             Obj:'',
             value: 1,
+            CarSum:0
             //高亮
             // menus:[
             //     {id:1,title:'111'},
@@ -76,7 +77,9 @@ export default {
             // ]
         };
     },
-    computed: {},
+    computed: {
+       
+    },
     watch: {},
     
     methods: {
@@ -96,8 +99,18 @@ export default {
           const res=await post('/api/v1/shop_carts',{
             product:this.id,
             quantity:this.value,
+            
         })
          console.log(res)       
+      },
+      //调用购物车
+     async Carshuliang(){
+          const res=await get('/api/v1/shop_carts')
+        //   this.list=res.data
+          console.log(res);
+          for(var i = 0;i<res.data.length;i++){
+              this.CarSum+=res.data[i].quantity
+          }
       }
       //锚点跳转
     //   shangpin(){
@@ -114,6 +127,7 @@ export default {
     created() {
          this.id = this.$route.params.id
         this.init(this.id)
+        this.Carshuliang()
 
     },
     mounted() {
@@ -130,7 +144,7 @@ export default {
         top: 0;
         width: 100%;
         height: 46px;
-        /* border: 1px solid black; */
+
         background: #fff;
     }
     .navtop{
@@ -218,6 +232,8 @@ export default {
      #chicun button{
     background-color: rgb(239, 82, 75);
     float: right;
+    width: 50px;
+    height: 30px;
          position: relative;
          right: 20px;
          margin-top: 22px;
