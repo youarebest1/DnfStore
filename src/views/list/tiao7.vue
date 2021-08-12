@@ -19,12 +19,19 @@
     </div>
 
     <div class="main">
-      <ul class="list-sp" v-for="item in products" :key="item._id">
-        <img :src="item.coverImg" alt="" />
+      <ul
+        class="list-sp"
+        v-for="item in products"
+        :key="item._id"
+        @click="tzhuan(item._id)"
+      >
+        <div><img :src="item.coverImg" alt="" /></div>
         <p>{{ item.name }}</p>
+        <h6>60天销量1000+ 评论267</h6>
         <span>￥{{ item.price }}</span>
       </ul>
     </div>
+    <div class="di"></div>
   </div>
 </template>
 
@@ -53,6 +60,9 @@ export default {
       this.products = res.data.products;
     },
     jiage() {},
+    tzhuan(id) {
+      this.$router.push("/xiangqing/" + id);
+    },
   },
   created() {
     this.ger();
@@ -106,6 +116,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .list-sp {
   width: 45%;
@@ -115,10 +126,14 @@ export default {
   display: inline-block;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #888888;
-  margin: 9px;
 }
-.list-sp > img {
+.list-sp > div {
   width: 100%;
+  height: 50%;
+}
+.list-sp > div > img {
+  width: 100%;
+  height: 100%;
   display: block;
   margin-top: 10px;
 }
@@ -136,5 +151,15 @@ export default {
   display: inline-block;
   margin-top: 10px;
   width: 100%;
+}
+.list-sp > h6 {
+  font-size: 14px;
+  color: #999;
+  line-height: 30px;
+  text-align: center;
+}
+.di {
+  width: 100%;
+  height: 60px;
 }
 </style>
