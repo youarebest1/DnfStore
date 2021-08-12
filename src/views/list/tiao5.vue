@@ -19,12 +19,19 @@
     </div>
 
     <div class="main">
-      <ul class="list-sp" v-for="item in products" :key="item._id">
-        <img :src="item.coverImg" alt="" />
+      <ul
+        class="list-sp"
+        v-for="item in products"
+        :key="item._id"
+        @click="tzhuan(item._id)"
+      >
+        <div><img :src="item.coverImg" alt="" /></div>
         <p>{{ item.name }}</p>
+        <h6>60天销量1000+ 评论267</h6>
         <span>￥{{ item.price }}</span>
       </ul>
     </div>
+    <div class="di"></div>
   </div>
 </template>
 
@@ -60,6 +67,9 @@ export default {
       // console.log(this.products = arr);
     },
     jiage() {},
+    tzhuan(id) {
+      this.$router.push("/xiangqing/" + id);
+    },
   },
   created() {
     this.ger();
@@ -113,6 +123,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .list-sp {
   width: 45%;
@@ -122,10 +133,14 @@ export default {
   display: inline-block;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #888888;
-  margin: 9px;
 }
-.list-sp > img {
+.list-sp > div {
   width: 100%;
+  height: 50%;
+}
+.list-sp > div > img {
+  width: 100%;
+  height: 100%;
   display: block;
   margin-top: 10px;
 }
@@ -143,5 +158,96 @@ export default {
   display: inline-block;
   margin-top: 10px;
   width: 100%;
+}
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  /* border: 1px solid ; */
+  position: fixed;
+  border-bottom: 1px solid;
+}
+.header > a {
+  display: block;
+  color: #999;
+  padding-top: 6px;
+}
+.header > p {
+  font-size: 26px;
+  font: 900;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.header span {
+  position: absolute;
+  left: 76%;
+  bottom: 30%;
+}
+.kongbai {
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+}
+.gl {
+  width: 180px;
+  height: 30px;
+  background-color: #999;
+  border-radius: 15px;
+  line-height: 30px;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 55%;
+  opacity: 0.5;
+}
+.main {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.list-sp {
+  width: 45%;
+  height: 300px;
+  border: 1px solid;
+  margin-top: 20px;
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #888888;
+}
+.list-sp > div {
+  width: 100%;
+  height: 50%;
+}
+.list-sp > div > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin-top: 10px;
+}
+.list-sp > p {
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  margin-top: 10px;
+}
+.list-sp > span {
+  color: red;
+  font-size: 20px;
+  font: 600;
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+}
+.list-sp > h6 {
+  font-size: 14px;
+  color: #999;
+  line-height: 30px;
+  text-align: center;
+}
+.di {
+  width: 100%;
+  height: 60px;
 }
 </style>
