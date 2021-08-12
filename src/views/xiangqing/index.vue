@@ -4,13 +4,9 @@
         <div id="nav">
             <div class="navtop">
             <router-link to="/shouye"><van-icon name="arrow-left" size="6vw" color="black"/></router-link>
-              <ul>
-                  <li ><a @click="shangpin('#img1')">商品</a></li>
-                  <li ><a @click="pingjia('#img2')">评价</a></li>
-                  <li ><a @click="xiangqing('#img3')">详情</a></li>
-                  <!-- <router-link to="">123</router-link> -->
-              </ul>
-              
+           <ul>
+                  <li  ref="ppp" v-for="(item,index) in menus" :key="item._id" ><a  @click="shangpin(index)">{{item.title}}</a></li>
+                 </ul>
             <router-link to="/carts"><van-icon name="shopping-cart-o"  size="6vw" :badge="CarSum" color="black"/></router-link>
             </div>
             <!-- 11111
@@ -18,10 +14,18 @@
                 <li v-for="(item,index) in menus" ref="ppp" :key="item._id" @click="choose(index)">{{item.id}}</li>
             </ul>
             1111 -->
+
+
+
+
+
+
+
+
         </div>
         <!-- 商品详情 -->
         <div id="xiangqing">
-            <img :src="Obj.coverImg" alt="" v-if='Obj.coverImg'>
+            <img :src="Obj.coverImg" id="img0" v-if='Obj.coverImg'>
             <h3 id="name">{{Obj.name}}</h3>
             <p id="miaoshu">战力激“增”  “福”气满满 [购买可获得普雷增幅宠物，领取道具后将不支持退换]预售商品，7月16日后的订单预计10月初开始陆续发货，请勇士们耐心等候。</p>
             <h3 id="price">￥{{Obj.price}}</h3>
@@ -43,8 +47,32 @@
                     <van-stepper v-model="value" id="btn"/>
                 </div>
             </div>
+                    <van-cell is-link @click="showPopup">
+                        <p>
+                            <van-icon name="gem" color="red" size="14" /><span size="14">赠送游戏道具</span>
+                            <van-icon name="hot-sale" color="red" size="14"/><span size="14">100%官方正品</span>
+                        </p>
+                    </van-cell>
+                    <van-popup v-model="show"   closeable
+   position="bottom" :style="{ height: '30%' }">
+  <p id="biaoti">让勇士们换了无忧购</p>
+ <div class="tianchu"><van-icon name="gem" color="red" size="14" />赠送游戏道具</div>
+ <div class="tianchu"><van-icon name="hot-sale" color="red" size="14"/>100%官方正品</div>
+ <div class="tianchu"><van-icon name="gem" color="red" size="14" />赠送游戏道具</div>
+ <div class="tianchu"><van-icon name="hot-sale" color="red" size="14"/>100%官方正品</div>
+  
+  
+  </van-popup>
         </div>
         <br><br><br><br><br><br>
+
+        <img :src="Obj.coverImg" width="100%" id="img2">
+        <img :src="Obj.coverImg" width="100%" >
+        <img :src="Obj.coverImg" width="100%" >
+        <img :src="Obj.coverImg" width="100%">
+        <img :src="Obj.coverImg" width="100%" id="img1">
+
+
         <!-- 加入购物车 -->
         <div>
            <van-goods-action>
@@ -60,6 +88,7 @@
 <script>
 import {get,post} from '../../util/request'
 // import { Toast } from 'vant';
+// import { Toast } from 'vant';
 export default {
     
     components: {},
@@ -68,13 +97,14 @@ export default {
         return {
             Obj:'',
             value: 1,
-            CarSum:0
+            CarSum:0,
+            show: false,
             //高亮
-            // menus:[
-            //     {id:1,title:'111'},
-            //     {id:2,title:'222'},
-            //     {id:3,title:'333'}
-            // ]
+            menus:[
+                {id:1,title:'商品'},
+                {id:2,title:'评价'},
+                {id:3,title:'详情'}
+            ]
         };
     },
     computed: {
@@ -92,7 +122,7 @@ export default {
          const res = await get('/api/v1/products/'+id)
          console.log(res);
          this.Obj=res.data
-  
+        this.$refs.ppp[0].className = "active"
       },
       //添加购物车
       async addCar(){
@@ -111,17 +141,20 @@ export default {
           for(var i = 0;i<res.data.length;i++){
               this.CarSum+=res.data[i].quantity
           }
-      }
+      },
       //锚点跳转
-    //   shangpin(){
-    //         document.querySelector('#img1').scrollIntoView(true);  
-    //   },
-    //   xiangqing(){
-    //         document.querySelector('#img2').scrollIntoView(true);
-    //   },
-    //   pingjia(){
-    //         document.querySelector('#img3').scrollIntoView(true);
-    //   }
+      shangpin(index){
+            document.querySelector('#img'+[index]).scrollIntoView(true); 
+            
+              (this.$refs.ppp).forEach(item => {
+                        item.className = " "
+                    });
+            this.$refs.ppp[index].className = "active"
+            console.log(index);
+      },
+      showPopup() {
+      this.show = true;
+    },
      
     },
     created() {
@@ -162,12 +195,11 @@ export default {
         width: 20%;
         text-align: center;
         line-height:26px ;
-        border-bottom: 1px solid black;
      }
      .active{
-  display: block;
-  background-color: red;
-  color: #fff;
+        display: block;
+        color: red;
+        border-bottom: 3px solid blue;
 }
      #xiangqing{
          width: 100%;
@@ -222,9 +254,9 @@ export default {
          border-radius: 2px;
          border: 2px solid red;
          float: right;
-         position: relative;
-         right: 20px;
+         margin-right: 20px;
          margin-top: 8px;
+
      }  
      #color{
          margin-top: 30px;
@@ -244,4 +276,24 @@ export default {
          margin-top: 20px;
          margin-right: 20px;
      }
+     .van-tabs--line{
+         margin-top:-10px;
+         width:65%;
+     }
+      .content {
+    padding: 16px 16px 160px;
+  } 
+  #biaoti{
+      height: 40px;
+      /* border: 1px solid black; */
+      line-height: 40px;
+      text-align: center;
+      font-size: 18px;
+      background-color: rgb(247, 247, 248);
+  }
+  .tianchu{
+      height: 20%;
+      /* border: 1px solid black; */
+      line-height:42px;
+  }
 </style>

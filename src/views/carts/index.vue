@@ -3,9 +3,12 @@
         <!-- 购物车头部 -->
         <div id="header">
             <a></a>
-            <div id="caozuo">
-                <van-icon name="edit" size="18px" />
-                <span>编辑</span>
+            <div id="caozuo"  >
+                <div v-if="!show" @click="bianji"><van-icon name="edit" size="18px" />编辑</div>
+              <div v-if="show" ><van-icon name="like-o" size="18px"/>收藏</div>
+                
+                 <div v-if="show" @click="dellist"><van-icon name="delete-o" size="18px"/>删除</div>
+              <div v-if="show" @click="bianji"><van-icon name="success" size="18px"/>完成</div>
             </div>
         </div>
         <!-- 购物车没有数据 -->
@@ -19,7 +22,7 @@
                 <ul >
                     <li v-for="(item,index) in list" :key="item._id+index">
                        <div id="photo">
-                            <van-checkbox v-model="item.checked" checked-color="red" icon-size="18px" id="check"/>
+                            <van-checkbox v-model="item.checked" checked-color="red" icon-size="18px" id="check" @click="checkid(item)"/>
                             <img :src="item.product.coverImg" >
                        </div>
                         <div id="name">
@@ -53,7 +56,7 @@
 
 <script>
 import Connav from '../../components/con_nav_black.vue'
-import {get,post} from "../../util/request";
+import {get,post,delmanycart} from "../../util/request";
 export default {
     
     components: {
@@ -63,15 +66,14 @@ export default {
         
         return {
             list:[],
-           
-            
+            show:false,
+            ids:[]
         };
     },
     computed: {
         checked: {
       // 如果购物车全选按钮是true，那么就全选，如果是false那么上面的补选中
       set(flag) {
-        // return this.list.forEach((item) => (item.checked = flag));
         console.log(flag);
         // 动态添加属性
         this.list.map((item) => this.$set(item, "checked", flag));
@@ -86,7 +88,6 @@ export default {
     },
     // 计算价格
     sunprice(){
-
         return this.list
         .filter((item)=>{
             return item.checked;
@@ -94,7 +95,21 @@ export default {
         .reduce(function(pre, cur) {
           return pre + cur.product.price * cur.quantity; //商品价格*购物车此商品的数量
         }, 0);
-    }
+    },
+    //获取选中的购物车列表
+    selectgoods() {
+      var selectlist = [];
+      this.list.forEach((item) => {
+        if (item.checked) {
+          selectlist.push({
+            quantity: item.quantity,
+            product: item._id,
+            price: item.product.price,
+          });
+        }
+      });
+      return selectlist;
+    },
     
     },
     watch: {
@@ -112,8 +127,8 @@ export default {
        async CarList(){
           const res=await get('/api/v1/shop_carts')
           this.list=res.data
-          console.log(res);
-          console.log(this.list);
+         /*  console.log(res);
+          console.log(this.list); */
           this.value=this.list.quantity
         },
         //添加数量
@@ -150,13 +165,33 @@ export default {
         },
         //提交订单
        onSubmit(){
-
-       }
-
+           this.$router.push('/userOrder')
+       },
+       //点击按钮获取id
+       checkid(){
+            // console.log("id", item);
+            // this.ids.push(item.product._id) 
+       },
+       //操作
+        bianji(){
+        this.show=!this.show
+        },
+        //多项删除
+          async dellist(){
+        var arr = [];
+      this.selectgoods.forEach((item) => {
+        arr.push(item.product);
+      });
+      const res = await delmanycart({ ids: arr });
+      if (res) {
+        this.CarList()
+      }
+        
+        console.log(res);
+        }
     },
     created() {
         this.CarList()
-        
     },
     mounted() {
         
@@ -167,7 +202,6 @@ export default {
     #header{
         width: 100vw;
         height: 100px;
-        /* background-color: red; */
         background-image:url( "https://img.dnfcity.qq.com/weixin20/base/cart_bg.png");
          background-size:100vw;
          text-align: center;
@@ -187,7 +221,6 @@ export default {
     }
     #nolist{
         width: 100vw;
-        /* background: url("https://img.dnfcity.qq.com/weixin20/base/cart_no.png") no-repeat; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -201,7 +234,6 @@ export default {
     #shouye{
         width: 152px;
         height: 48px;
-        /* border: 1px solid black; */
         position: absolute;
         top: 312px;
         left: 34px;
@@ -209,7 +241,6 @@ export default {
    
     
     #list ul li{
-        /* border: 1px solid black; */
         margin-top: 10px;
         display: flex;
         height: 80px;
@@ -250,11 +281,7 @@ export default {
    #jiesuan{
        margin-bottom: 60px;
    }
-   /* .van-submit-bar__text{
-       margin-bottom: 10px;
-       font-size: 0.16rem;
 
-   } */
    #box{
        position: absolute;
        width: 20%;
@@ -264,20 +291,20 @@ export default {
    }
    .heji{
        position: relative;
-       /* top: 10px; */
-        /* left:28% ; */
        font-size: 0.16rem;
    }
    #caozuo{
        float: right;
-       margin-top: 30px;
-       /* display: flex; */
-       /* height: 10px; */
+       margin-top: 65px;
+       margin-right: 20px;
+       color: #fff;
+       display: flex;
+   }
+   #caozuo div{
+       line-height: 30px;
+        font-size: 12px;
+        margin-right: 5px;
    }
    
-   #caozuo span{
-       float: right;
-       /* line-height: 20px; */
-       font-size: 16px;
-   }
+ 
 </style>
