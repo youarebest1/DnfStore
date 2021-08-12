@@ -5,12 +5,21 @@
             <a></a>
         </div>
         <!-- 购物车没有数据 -->
-        <div id="nolist">
+        <!-- <div id="nolist" >
             <div>
                 <router-link to="shouye"><div id="shouye"></div></router-link>
                 <img src="https://img.dnfcity.qq.com/weixin20/base/cart_no.png" alt="" width="220px" height="320px" >
-               
             </div>
+        </div> -->
+        <div id="list">
+            
+                <ul>
+                    <li>
+                        <input type="checkbox" class="check">
+                        <img src="" alt="">
+                    </li>
+                </ul>
+            
         </div>
 <Connav></Connav>
     </div>
@@ -18,7 +27,7 @@
 
 <script>
 import Connav from '../../components/con_nav_black.vue'
-// import {get} from "../../util/request";
+import {get} from "../../util/request";
 export default {
     
     components: {
@@ -27,20 +36,23 @@ export default {
     data() {
         
         return {
-            
+            list:[],
+            nolist:"none"
         };
     },
     computed: {},
     watch: {},
     
     methods: {
-    //    async CarList(){
-    //        const res = await get('/api/v1/shop_carts')
-    //        console.log(res);
-    //    }
+        //调用用户购物车数据
+       async CarList(){
+          const res=await get('/api/v1/shop_carts')
+          this.list=res.data
+          console.log(res);
+        },
     },
     created() {
-        // this.CarList()
+        this.CarList()
     },
     mounted() {
         
@@ -70,7 +82,6 @@ export default {
        top:30px;
     }
     #nolist{
-        
         width: 100vw;
         /* background: url("https://img.dnfcity.qq.com/weixin20/base/cart_no.png") no-repeat; */
         display: flex;
@@ -91,6 +102,10 @@ export default {
         left: 34px;
     }
    
-    
+    .check{
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+    }
    
 </style>
