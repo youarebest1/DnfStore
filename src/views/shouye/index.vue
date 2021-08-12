@@ -148,37 +148,72 @@ export default {
   methods: {
     //获取商品数据
     async getproduct() {
-      let kouhong = await get("/api/v1/products", {
-        per: 4,
+
+      let ps = await get("/api/v1/products", {
+        per: 200,
         page: 1,
-        product_category: "6113bf1ae6e70d22f035716d",
       });
-      let dengju = await get("/api/v1/products", {
-        per: 4,
-        page: 1,
-        product_category: "6113bf1ae6e70d22f035716c",
-      });
-      let dianshi = await get("/api/v1/products", {
-        per: 4,
-        page: 1,
-        product_category: "6113bf1ae6e70d22f035716b",
-      });
-      let shoubiao = await get("/api/v1/products", {
-        per: 4,
-        page: 1,
-        product_category: "6113bf1ae6e70d22f0357169",
-      });
-      let shouji = await get("/api/v1/products", {
-        per: 4,
-        page: 1,
-        product_category: "6113bf1ae6e70d22f0357168",
-      });
-      this.kouhong = kouhong.data.products;   //获取口红数据
-      this.dengju = dengju.data.products;    //获取灯具
-      this.dianshi = dianshi.data.products;  //获取电视
-      this.shoubiao = shoubiao.data.products; //获取手表
-      this.shouji = shouji.data.products;   //获取手机
-      console.log(kouhong)
+      let arr=[]
+      let arr1=[]
+      let arr2=[]
+      let arr3=[]
+      let arr4=[]
+       ps.data.products.forEach(item => {
+          if(item.productCategory.name=="口红"){
+             if(arr.length>=4){
+               return
+             }else{
+              arr.push(item)
+             }
+     
+          }
+       });
+       ps.data.products.forEach(item => {
+          if(item.productCategory.name=="灯具"){
+             if(arr1.length>=4){
+               return
+             }else{
+              arr1.push(item)
+             }
+     
+          }
+       });
+         ps.data.products.forEach(item => {
+          if(item.productCategory.name=="电视"){
+             if(arr2.length>=4){
+               return
+             }else{
+              arr2.push(item)
+             }
+     
+          }
+       });
+         ps.data.products.forEach(item => {
+          if(item.productCategory.name=="智能手表"){
+             if(arr3.length>=4){
+               return
+             }else{
+              arr3.push(item)
+             }
+     
+          }
+       });
+       ps.data.products.forEach(item => {
+          if(item.productCategory.name=="手机"){
+             if(arr4.length>=4){
+               return
+             }else{
+              arr4.push(item)
+             }
+     
+          }
+       });
+       console.log(ps)
+      this.kouhong = arr;   //获取口红数据
+      this.dengju = arr1;    //获取灯具
+      this.dianshi = arr2;  //获取电视
+      this.shoubiao = arr3; //获取手表
+      this.shouji = arr4;   //获取手机 
     },
     dw(id){
             this.$router.push("/xiangqing/"+id);
@@ -287,10 +322,10 @@ export default {
 }
 .renqi .van-tabs__content .dl1{
   width: 45%;
-  height: 272px;
+  height: 260px;
   border: 1px solid gainsboro;
   border-radius: 10px;
-  margin: 8px;
+  margin: 6px;
   float: left;
   box-shadow: 5px 5px 5px #888888;
 

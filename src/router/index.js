@@ -111,6 +111,7 @@ const router = new VueRouter({
 				footShow: true,
 			},
 		},
+    
 		/* 以下为'我的'页面路由 */
 		{
 			path: '/userOrder', //我是全部订单页面
