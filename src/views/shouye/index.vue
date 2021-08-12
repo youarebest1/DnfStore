@@ -55,7 +55,7 @@
           <dl class="dl1"  v-for="item in dengju"  :key='item._id' @click='dw(item._id)'>
             <img :src="item.coverImg" alt="图片暂时无法加载">
             <p>{{item.name}}</p>
-            <span>60天销量：1000+</span>
+            <span>60天销量：1000+ </span>
             <h3>￥{{item.price}}</h3>
           </dl>
         </van-tab>

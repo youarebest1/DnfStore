@@ -110,7 +110,6 @@ export default {
  .con_nav .van-popup>ul>li{
       width: 80%;
       height: 52px;
-      border: 1px solid greenyellow;
       margin: 0 auto;
       border-radius: 50px;
       position: relative;
