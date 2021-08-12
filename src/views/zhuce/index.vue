@@ -57,6 +57,8 @@ export default {
             if(result.data.code==='success'){
                 Toast('注册成功');
                 this.$router.push('/denglu')
+            }else{
+                Toast('注册失败');
             }
         }, 
     },

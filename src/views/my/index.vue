@@ -5,9 +5,9 @@
 				round
 				width="4rem"
 				height="4rem"
-				src="https://dnfcity.qq.com/mobile/imgjs/img/user/top_img.png"
+				:src="imgurl"
 			/>
-			<p>玩家昵称({{ name }})</p>
+			<p>玩家昵称({{ nname }})</p>
 		</div>
 		<div class="cont">
 			<div class="order">
@@ -50,18 +50,32 @@
 </template>
 
 <script>
+import { get } from "../../util/request";
+
+
 export default {
 	components: {},
 	data() {
 		return {
 			name: '',
+			imgurl:'',
+			nname:'',
 		}
 	},
 	computed: {},
 	watch: {},
 
-	methods: {},
-	created() {},
+	methods: {
+	async	getuser(){
+          let result=await get("/api/v1/users/info");
+					console.log(result)
+					this.imgurl=result.data.avatar;
+					this.nname=result.data.nickName;
+		}
+	},
+	created() {
+		this.getuser();
+	},
 	mounted() {},
 }
 </script>

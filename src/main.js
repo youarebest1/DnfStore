@@ -16,3 +16,24 @@ new Vue({
   router,
   Vant,
 }).$mount("#app");
+
+router.beforeEach((to, from, next) => {
+  //创建全局守卫
+  const istoken = localStorage.getItem("token") || "";
+  if (!istoken) {
+    //如果没有登录的话
+    if (to.path == "/denglu") {
+      //如果在登录页，直接显示
+      next(); //显示登录页
+    } else {
+      next("/denglu"); //如果不在登录页，直接跳转登录页
+    }
+  } else {
+    if (to.path == "/denglu") {
+      //如果登录的话，在登录页，直接跳转到首页
+      next("/shouye");
+    } else {
+      next(); //在其他页面直接放行
+    }
+  }
+});
