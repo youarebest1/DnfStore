@@ -105,14 +105,7 @@ export default {
 .tit img {
 	width: 120px;
 }
-/* .product-box::before {
-	display: block;
-	content: '11';
-	clear: both;
-	height: 80px;
-	overflow: hidden;
-	visibility: hidden;
-} */
+
 .product-box {
 	margin-bottom: 50px;
 	overflow: hidden;
