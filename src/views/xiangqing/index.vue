@@ -4,23 +4,11 @@
         <div id="nav">
             <div class="navtop">
             <router-link to="/shouye"><van-icon name="arrow-left" size="6vw" color="black"/></router-link>
-           <ul>
+                <ul>
                   <li  ref="ppp" v-for="(item,index) in menus" :key="item._id" ><a  @click="shangpin(index)">{{item.title}}</a></li>
                  </ul>
             <router-link to="/carts"><van-icon name="shopping-cart-o"  size="6vw" :badge="CarSum" color="black"/></router-link>
             </div>
-            <!-- 11111
-            <ul>
-                <li v-for="(item,index) in menus" ref="ppp" :key="item._id" @click="choose(index)">{{item.id}}</li>
-            </ul>
-            1111 -->
-
-
-
-
-
-
-
 
         </div>
         <!-- 商品详情 -->
@@ -60,9 +48,8 @@
  <div class="tianchu"><van-icon name="hot-sale" color="red" size="14"/>100%官方正品</div>
  <div class="tianchu"><van-icon name="gem" color="red" size="14" />赠送游戏道具</div>
  <div class="tianchu"><van-icon name="hot-sale" color="red" size="14"/>100%官方正品</div>
-  
-  
   </van-popup>
+ 
         </div>
         <br><br><br><br><br><br>
 
@@ -129,15 +116,14 @@ export default {
           const res=await post('/api/v1/shop_carts',{
             product:this.id,
             quantity:this.value,
-            
         })
-         console.log(res)       
+         console.log(res)   
+         this.Carshuliang()    
       },
       //调用购物车
      async Carshuliang(){
           const res=await get('/api/v1/shop_carts')
-        //   this.list=res.data
-          console.log(res);
+         this.CarSum=0
           for(var i = 0;i<res.data.length;i++){
               this.CarSum+=res.data[i].quantity
           }
@@ -262,20 +248,25 @@ export default {
          margin-top: 30px;
      }
      #chicun button{
-    background-color: rgb(239, 82, 75);
-    float: right;
-    width: 50px;
-    height: 30px;
-         position: relative;
-         right: 20px;
+        background-color: rgb(239, 82, 75);
+        float: right;
+        width: 50px;
+        height: 30px;
+         margin-right: 20px;
          margin-top: 22px;
          border: none;
      }
-     #btn{
+     #shuliang div{
+        float: right;
+          margin-top: 10px;
+         margin-right: 10px;
+         background-color: #fff;
+     }
+     /* #btn{
          float: right;
          margin-top: 20px;
          margin-right: 20px;
-     }
+     } */
      .van-tabs--line{
          margin-top:-10px;
          width:65%;

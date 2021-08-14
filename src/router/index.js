@@ -117,7 +117,7 @@ const router = new VueRouter({
       path: "/userOrder", //我是全部订单页面
       component: () => import("../views/userOrder"),
       meta: {
-        footShow: true,
+        footShow: false,
       },
     },
     {

@@ -12,12 +12,12 @@
             </div>
         </div>
         <!-- 购物车没有数据 -->
-        <!-- <div id="nolist" >
+        <div id="nolist" v-if="nolist">
             <div>
                 <router-link to="shouye"><div id="shouye"></div></router-link>
                 <img src="https://img.dnfcity.qq.com/weixin20/base/cart_no.png" alt="" width="220px" height="320px" >
             </div>
-        </div> -->
+        </div>
         <div id="list">
                 <ul >
                     <li v-for="(item,index) in list" :key="item._id+index">
@@ -57,6 +57,7 @@
 <script>
 import Connav from '../../components/con_nav_black.vue'
 import {get,post,delmanycart} from "../../util/request";
+import { Toast } from 'vant';
 export default {
     
     components: {
@@ -67,7 +68,8 @@ export default {
         return {
             list:[],
             show:false,
-            ids:[]
+            ids:[],
+            nolist:false
         };
     },
     computed: {
@@ -130,6 +132,9 @@ export default {
          /*  console.log(res);
           console.log(this.list); */
           this.value=this.list.quantity
+          if(res.data.length==0){
+              this.nolist=!this.nolist
+          }
         },
         //添加数量
        async jia(index){
@@ -165,7 +170,12 @@ export default {
         },
         //提交订单
        onSubmit(){
-           this.$router.push('/userOrder')
+        //    this.$router.push('/userOrder')
+           this.$router.push({path:'/userOrder',query:{name:'haha'}})
+        console.log(this.selectgoods);
+         if(this.selectgoods.length==0){
+            Toast.fail('请选择您的商品');
+          }
        },
        //点击按钮获取id
        checkid(){
