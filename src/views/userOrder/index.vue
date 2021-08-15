@@ -2,6 +2,9 @@
 	<div class="userOrder">
 		<van-button type="primary" block id="zhifu" @click="adddingdan">提交订单</van-button>
 		<!-- 没有收货地址 -->
+		<div>
+			123123
+		</div>
 		<div id="dizhi">
 			<p><van-icon name="location" />我的收货地址</p>
 			<router-link to="/addressList"><p id="newdizhi">新增地址<van-icon name="arrow" /></p></router-link>
