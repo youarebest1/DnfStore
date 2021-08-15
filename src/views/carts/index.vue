@@ -69,7 +69,8 @@ export default {
             list:[],
             show:false,
             ids:[],
-            nolist:false
+            nolist:false,
+            tijiao:[]
         };
     },
     computed: {
@@ -105,8 +106,10 @@ export default {
         if (item.checked) {
           selectlist.push({
             quantity: item.quantity,
-            product: item._id,
+            product: item.product._id,
             price: item.product.price,
+            img:item.product.coverImg,
+            name:item.product.name
           });
         }
       });
@@ -129,9 +132,8 @@ export default {
        async CarList(){
           const res=await get('/api/v1/shop_carts')
           this.list=res.data
-         /*  console.log(res);
-          console.log(this.list); */
-          this.value=this.list.quantity
+          console.log(res);
+        //   this.value=this.list.quantity
           if(res.data.length==0){
               this.nolist=!this.nolist
           }
@@ -169,12 +171,17 @@ export default {
             }
         },
         //提交订单
-       onSubmit(){
-        //    this.$router.push('/userOrder')
-           this.$router.push({path:'/userOrder',query:{name:'haha'}})
-        console.log(this.selectgoods);
+        async onSubmit(){
+        //   console.log(this.selectlist);
+        //判断是否选中商品
          if(this.selectgoods.length==0){
             Toast.fail('请选择您的商品');
+          }else{
+            
+            localStorage.setItem('list',JSON.stringify(this.selectgoods))
+            console.log(this.selectgoods);
+           this.$router.push('/userOrder')
+
           }
        },
        //点击按钮获取id

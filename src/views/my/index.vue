@@ -11,7 +11,7 @@
 		</div>
 		<div class="cont">
 			<div class="order">
-				<van-cell title="全部订单" icon="orders-o" is-link to="userOrder" />
+				<van-cell title="全部订单" icon="orders-o" is-link to="" />
 				<van-grid>
 					<van-grid-item icon="credit-pay" text="待付款" />
 					<van-grid-item icon="logistics" text="待发货" />
