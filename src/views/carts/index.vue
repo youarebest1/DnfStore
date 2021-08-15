@@ -69,7 +69,8 @@ export default {
             list:[],
             show:false,
             ids:[],
-            nolist:false
+            nolist:false,
+            tijiao:[]
         };
     },
     computed: {
@@ -105,7 +106,7 @@ export default {
         if (item.checked) {
           selectlist.push({
             quantity: item.quantity,
-            product: item._id,
+            product: item.product._id,
             price: item.product.price,
           });
         }
@@ -169,12 +170,32 @@ export default {
             }
         },
         //提交订单
-       onSubmit(){
-        //    this.$router.push('/userOrder')
-           this.$router.push({path:'/userOrder',query:{name:'haha'}})
-        console.log(this.selectgoods);
+        async onSubmit(){
+          console.log(this.selectlist);
+        //判断是否选中商品
          if(this.selectgoods.length==0){
             Toast.fail('请选择您的商品');
+          }else{
+        for(var i = 0;i<this.selectgoods.length;i++){
+            // console.log(this.selectgoods);
+             this.tijiao.push({
+                 quantity:this.selectgoods[i].quantity,
+                 price:this.selectgoods[i].price,
+                 product:this.selectgoods[i].product,
+             })   
+               }
+               console.log(this.tijiao);
+            const res = await post('/api/v1/orders',{
+                receiver:"收货人",
+                regions :"收货的省市区县",     
+                address :"收货地址" ,
+                orderDetails:this.tijiao,
+            })
+            console.log(res);
+            // this.$router.push({path:'/userOrder',newres:this.selectgoods})
+            localStorage.setItem('_id',JSON.stringify(res.data.info.order._id))
+           this.$router.push('/userOrder')
+
           }
        },
        //点击按钮获取id
