@@ -114,7 +114,7 @@ const router = new VueRouter({
 
     /* 以下为'我的'页面路由 */
     {
-      path: "/userOrder", //我是全部订单页面
+      path: "/userOrder/:id", //我是全部订单页面
       component: () => import("../views/userOrder"),
       meta: {
         footShow: false,
@@ -181,6 +181,20 @@ const router = new VueRouter({
       component: () => import("../views/my/addressList"),
       meta: {
         footShow: true,
+      },
+    },
+    {
+      path: "/adddizhi", //我是新增加地址页面
+      component: () => import("../views/my/adddizhi"),
+      meta: {
+        footShow: false,
+      },
+    },
+    {
+      path: "/updatadizhi/:id", //我是修改地址页面
+      component: () => import("../views/my/aupdatadizhi"),
+      meta: {
+        footShow: false,
       },
     },
   ],

@@ -39,6 +39,8 @@ export const get = (url, params) => instance.get(url, { params })
 
 // 封装一下post请求
 export const post = (url, data) => instance.post(url, data)
+export const del = (url, data) => instance.delete(url, data)
+export const pput = (url, data) => instance.put(url, data)
 
 
 export const delmanycart = (data) => post("/api/v1/shop_carts/delmany", data);

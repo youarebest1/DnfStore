@@ -22,11 +22,11 @@ router.beforeEach((to, from, next) => {
   const istoken = localStorage.getItem("token") || "";
   if (!istoken) {
     //如果没有登录的话
-    if (to.path == "/denglu") {
+    if (to.path == "/denglu" || to.path == "/zhuce") {
       //如果在登录页，直接显示
       next(); //显示登录页
     } else {
-      next("/denglu"); //如果不在登录页，直接跳转登录页
+      next("/zhuce"); //如果不在登录页，直接跳转登录页
     }
   } else {
     if (to.path == "/denglu") {
