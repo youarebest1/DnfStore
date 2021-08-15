@@ -1,20 +1,20 @@
 <template>
 	<div class="userOrder">
-		<van-button type="primary" block id="zhifu">提交订单</van-button>
+		<van-button type="primary" block id="zhifu" @click="adddingdan">提交订单</van-button>
 		<!-- 没有收货地址 -->
 		<div id="dizhi">
 			<p><van-icon name="location" />我的收货地址</p>
-			<p id="newdizhi">新增地址<van-icon name="arrow" /></p>
+			<router-link to="/addressList"><p id="newdizhi">新增地址<van-icon name="arrow" /></p></router-link>
 		</div>
 		<!-- 商品信息 -->
 		<div id="xin">
 			<p id="xinxi">商品信息</p>
 			<ul>
-				<li id="list" v-for="item in newlist" :key="item._id">
-					<img :src="item.product.coverImg" width="60px" height="60px">
+				<li id="list" v-for="item in list" :key="item._id">
+					<img :src="item.img" width="60px" height="60px">
 					<div>
-						<p>{{item.product.name}}</p>
-						<p>现价：￥{{item.product.price}}x{{item.product.quantity}}</p>
+						<p>{{item.name}}</p>
+						<p>现价：￥{{item.price}}x{{item.quantity}}</p>
 						<p>彩/均码</p>
 					</div>
 				</li>
@@ -30,17 +30,18 @@
 </template>
 
 <script>
-import {get} from "../../util/request";
+import {post} from "../../util/request";
 	export default {
 		components: {},
 		data() {
 			return {
 				list:[],
-				newlist:[]
+				Newlist:[],
+				
 			}
 		},
 		computed: {
-		
+			
 
 
 
@@ -48,21 +49,29 @@ import {get} from "../../util/request";
 		watch: {},
 
 		methods: {
-				async dingdan(){
-				// this.newlist=JSON.parse(localStorage.getItem('list'))
-				let id = JSON.parse(localStorage.getItem('_id'))
-				// console.log(id);
-				const res = await get('/api/v1/orders/'+id)
-				this.newlist=res.data.details
-				console.log(res.data.details);
-				console.log(this.newlist);
-				// console.log(this.newlist);
-
+			async adddingdan(){
+				this.list.forEach((item)=>{
+					this.Newlist.push({
+						quantity:item.quantity, 
+                     product:item.product,  
+                     price:item.price,
+					})
+				})
+				
+				// this.list=JSON.parse(localStorage.getItem('list'))
+				const res = await post('/api/v1/orders',{
+                receiver:"收货人",
+                regions :"收货的省市区县",     
+                address :"收货地址" ,
+                orderDetails:this.Newlist,
+            })
+            console.log(res);
 			}
 		},
 		created() {
-			this.dingdan()
-			
+			this.list=JSON.parse(localStorage.getItem('list'))
+			console.log(this.list);
+			console.log(this.Newlist);
 		},
 		mounted() {},
 	}
@@ -74,7 +83,7 @@ import {get} from "../../util/request";
 }
 #dizhi{
 	height: 50px;
-	background-color: red;
+	/* background-color: red; */
 	display: flex;
 	justify-content: space-between;
 	padding-left: 16px;
@@ -85,7 +94,7 @@ line-height: 50px;
 #xin{
 	margin-top: 20px;
 	height: 30px;
-	background-color: red;
+	/* background-color: red; */
 	/* padding: 0 20px; */
 }
 #xinxi{
