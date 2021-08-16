@@ -74,6 +74,7 @@ export default {
        if(this.index!=null){
          this.$store.commit('getdizhi',this.list[this.index].id);
          console.log(this.$store.state.dizhi)
+         this.$router.push('/userOrder')
        }else{
          Toast("请选择收货地址")
        }

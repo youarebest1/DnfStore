@@ -41,6 +41,13 @@ const router = new VueRouter({
       },
     },
     {
+      path: "/dingdan", //个人中心页面
+      component: () => import("../views/my/dingdan"),
+      meta: {
+        footShow: false,
+      },
+    },
+    {
       path: "/denglu", //登录页面
       component: () => import("../views/denglu"),
       meta: {

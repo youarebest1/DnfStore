@@ -177,11 +177,10 @@ export default {
          if(this.selectgoods.length==0){
             Toast.fail('请选择您的商品');
           }else{
-            
-            localStorage.setItem('list',JSON.stringify(this.selectgoods))
-            console.log(this.selectgoods);
-           this.$router.push('/userOrder')
-
+/*             localStorage.setItem('list',JSON.stringify(this.selectgoods))
+ */            this.$store.commit('getshipin',this.selectgoods)  //将数据存入公共仓库
+                console.log(this.$store.state.shangpin)
+                this.$router.push('/userOrder')
           }
        },
        //点击按钮获取id
