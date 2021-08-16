@@ -1,4 +1,5 @@
 <template>
+
 	<div class="addressLsit">
 		<van-nav-bar
   title="收货地址"
@@ -20,12 +21,11 @@
   v-model="chosenAddressId"
   :list="list"
   default-tag-text="默认"
-	add-button-text="添加收货地址"
+	add-button-text="选择收货地址"
   @add="onAdd"
   @edit="onEdit"
-  @click-item="onClickitem"
+  @select="onSelect"
 />
-
 
 	</div>
 
@@ -33,25 +33,34 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
 import { get } from "../../util/request";
+import { Toast } from 'vant';
 
 export default {
 	components: {},
 	data() {
 		return {
-     chosenAddressId: '0',
+     chosenAddressId:"1",
       list:null,
+      index:null,
     }
  },
 	computed: {},
 	watch: {},
 
 	methods: {
-    onClickitem(item, index){
+   /*  onClickitem(item, index){
        this.$router.push({
           path: `/userOrder/${this.list[index].id}`,  
         })
+    }, */
+    onSelect(item,index){
+       console.log(index)
+       this.list.forEach((item)=>{
+         item.isDefault=false;
+         this.list[index].isDefault=true;
+       })
+       this.index=index;
     },
     onClickLeft() {
         this.$router.push('/my')
@@ -61,8 +70,13 @@ export default {
 
     },
 		onAdd() {
-      Toast('新增地址');
-    this.$router.push('/adddizhi')
+      console.log(this.index)
+       if(this.index!=null){
+         this.$store.commit('getdizhi',this.list[this.index].id);
+         console.log(this.$store.state.dizhi)
+       }else{
+         Toast("请选择收货地址")
+       }
 
     },
     onEdit(item, index) {
@@ -70,7 +84,7 @@ export default {
           path: `/updatadizhi/${this.list[index].id}`,  
         })
     },
-  async getdz(){
+async getdz(){
 let result=await get("/api/v1/addresses");
 if(result.data.addresses.length>0){
 	this.list=[];
@@ -82,6 +96,18 @@ if(result.data.addresses.length>0){
           address:item.regions+item.address,
 					isDefault:item.isDefault,
 })
+  this.list.forEach((item,index)=>{
+       if(item.isDefault==true){
+           this.list.forEach(it=>{
+             it.isDefault=false;
+           })
+          this.list[index].isDefault=true;
+          console.log(1)
+       }else{
+         this.list[0].isDefault=true;
+       }
+
+  })
 
  });
 }
@@ -93,6 +119,7 @@ if(result.data.addresses.length>0){
    this.getdz()
 	},
 	mounted() {},
+
 }
 </script>
 <style scoped>
