@@ -114,7 +114,7 @@ const router = new VueRouter({
 
     /* 以下为'我的'页面路由 */
     {
-      path: "/userOrder/:id", //我是全部订单页面
+      path: "/userOrder", //我是全部订单页面
       component: () => import("../views/userOrder"),
       meta: {
         footShow: false,
