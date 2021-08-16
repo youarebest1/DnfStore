@@ -2,9 +2,10 @@
 	<div class="userOrder">
 		<van-button type="primary" block id="zhifu" @click="adddingdan">提交订单</van-button>
 		<!-- 没有收货地址 -->
+		
 		<div id="dizhi">
 			<p><van-icon name="location" />我的收货地址</p>
-			<router-link to="/addressList"><p id="newdizhi">新增地址<van-icon name="arrow" /></p></router-link>
+			<router-link to="/addressList"><p id="newdizhi">选择地址<van-icon name="arrow" /></p></router-link>
 		</div>
 		<!-- 商品信息 -->
 		<div id="xin">
@@ -69,6 +70,7 @@ import {post} from "../../util/request";
 			}
 		},
 		created() {
+			this.adddingdan()
 			this.list=JSON.parse(localStorage.getItem('list'))
 			console.log(this.list);
 			console.log(this.Newlist);
