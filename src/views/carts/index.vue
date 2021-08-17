@@ -43,7 +43,7 @@
 <van-submit-bar :price="sunprice*100" button-text="提交订单" @submit="onSubmit" id="jiesuan" >
   <van-checkbox v-model="checked" >全选</van-checkbox>
     <div id="box">
-          <span class="heji">数量</span>
+          <!-- <span class="heji">数量</span> -->
           </div>
 </van-submit-bar>
         </div>    
